@@ -20,27 +20,8 @@
     <arg name="trajectory_publish_rate" default="50.0" />
     <arg name="yaw_tracking_enable" default="false" />
 
-    <!-- Controller/Observer Input Arguments (old controller and observer)-->
-    <?ignore 
-    <arg name ="mass" default="1.129" />
-    <arg name ="gravity" default="9.81" />
-    <arg name ="max_thrust_per_motor" default="1000" /> <!-- in grams -->
+    <!-- Add Controller Input Arguments here-->
 
-    <arg name ="imu_topic_name" default="/mavros/imu/data" />
-    <arg name ="mcs_topic_name" default="$(arg pose_topic_name)" />
-    <arg name ="mavros_attitude_target_topic_name" default="/mavros/setpoint_raw/attitude" />
-    <arg name ="trajectory_generator_topic_name" default="/trajectory_generator/trajectory" /> 
-    ?>
-
-    <!-- Adaptive NFTSMC and ST-SMO Input Arguments (new controller and observer)-->
-    <arg name ="mass" default="1.029" />
-    <arg name ="max_thrust_per_motor" default="850" /> <!-- in grams -->
-    <arg name ="sampling_time" default="0.02"/>
-
-    <arg name ="imu_topic_name" default="/mavros/imu/data" />
-    <arg name ="mcs_topic_name" default="$(arg pose_topic_name)" />
-    <arg name ="mavros_attitude_target_topic_name" default="/mavros/setpoint_raw/attitude" />
-    <arg name ="trajectory_generator_topic_name" default="/trajectory_generator/trajectory" />
 
     <!-- Launch Gazebo and the SITL Simulation -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch" >
@@ -57,31 +38,7 @@
         <arg name="publish_rate_imu" value="$(arg publish_rate_imu)" />
     </include>
 
-    <!-- Launch Controller/Observer (old controller and observer)-->
-    <?ignore
-    <include file="$(find test_package)/launch/controller_observer.launch" >
-        <arg name="mass" value="$(arg mass)"/>
-        <arg name="gravity" value="$(arg gravity)"/>
-        <arg name= "max_thrust_per_motor" value="$(arg max_thrust_per_motor)"/> <!-- in grams -->
-
-        <arg name="imu_topic_name" value="$(arg imu_topic_name)"/>
-        <arg name="mcs_topic_name" value="$(arg mcs_topic_name)"/>
-        <arg name="mavros_attitude_target_topic_name" value="$(arg mavros_attitude_target_topic_name)"/>
-        <arg name="trajectory_generator_topic_name" value="$(arg trajectory_generator_topic_name)"/>
-    </include>
-    ?>
-
-    <!-- Launch Adaptive NFTSMC and ST-SMO (new controller and observer) -->
-    <include file="$(find test_package)/launch/launch_controller.launch" >
-        <arg name="initial_mass_guess" value="$(arg mass)"/>
-        <arg name="max_thrust_per_motor" value="$(arg max_thrust_per_motor)"/> <!-- in grams -->
-        <arg name="sampling_time" value="$(arg sampling_time)"/>
-
-        <arg name="imu_topic_name" value="$(arg imu_topic_name)"/>
-        <arg name="mcs_topic_name" value="$(arg mcs_topic_name)"/>
-        <arg name="mavros_attitude_target_topic_name" value="$(arg mavros_attitude_target_topic_name)"/>
-        <arg name="trajectory_generator_topic_name" value="$(arg trajectory_generator_topic_name)"/>
-    </include>
+    <!-- Launch Controller here -->
 
     <!-- Launch Trajectory Generator -->
     <include file="$(find traj_gen)/launch/trajectory_generator.launch" >

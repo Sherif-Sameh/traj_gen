@@ -38,13 +38,13 @@ TrajectoryGenerator::TrajectoryGenerator(ros::NodeHandle &nh) : sf_active_state_
     abort_mission_srv = nh.advertiseService("/trajectory_generator/abort_mission", &TrajectoryGenerator::callback_abort_mission, this);
     set_mode_srv = nh.advertiseService("/trajectory_generator/set_mode", &TrajectoryGenerator::callback_set_mode, this);
 
-    sf_states.push_back(std::make_unique<SFInactiveState>(string("Inactive"), arming_client, set_flight_mode_client));
-    sf_states.push_back(std::make_unique<SFTakeOffState>(string("Take-off"), min_takeoff_height, 
-                                                        max_takeoff_height, max_takeoff_rate));
-    sf_states.push_back(std::make_unique<SFHoverState>(string("Hover")));
-    sf_states.push_back(std::make_unique<SFTrajectoryTrackingState>(string("Trajectory_Tracking")));
-    sf_states.push_back(std::make_unique<SFLandingState>(string("Landing"), min_takeoff_height, 
-                                                        min_landing_height, max_landing_rate));
+    sf_states.push_back(std::unique_ptr<SFInactiveState>(new SFInactiveState(string("Inactive"), arming_client, set_flight_mode_client)));
+    sf_states.push_back(std::unique_ptr<SFTakeOffState>(new SFTakeOffState(string("Take-off"), min_takeoff_height, 
+                                                        max_takeoff_height, max_takeoff_rate)));
+    sf_states.push_back(std::unique_ptr<SFHoverState>(new SFHoverState(string("Hover"))));
+    sf_states.push_back(std::unique_ptr<SFTrajectoryTrackingState>(new SFTrajectoryTrackingState(string("Trajectory_Tracking"))));
+    sf_states.push_back(std::unique_ptr<SFLandingState>(new SFLandingState(string("Landing"), min_takeoff_height, 
+                                                        min_landing_height, max_landing_rate)));
 }
 
 void TrajectoryGenerator::callback_pose(const geometry_msgs::PoseStamped::ConstPtr &msg)
