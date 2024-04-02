@@ -1,7 +1,7 @@
 # traj_gen
 Trajectory Generator for Quadrotor UAVs using ArduCopter
 
-## 2- Trajectory Generator
+## Trajectory Generator
 
 ### Overview
 The **Trajectory Generator** node implements a state machine composed of 5 distinct states for generating different trajectories and handling the different requirements of  transitioning between the different states such as arming or disarming motors. The implementation is based on MatLab StateFlow and uses user-triggered events to trigger some transitions between the different states. The five states are labelled as follows:
