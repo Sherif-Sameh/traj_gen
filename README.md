@@ -52,6 +52,12 @@ For example: `rosservice call /trajectory_generator/set_mode "Trajectory_Trackin
 
 **OR**
 
+* rosservice call /trajectory_generator/set_mode "Trajectory_Tracking helical_var Helix_radius (m) Omega_min (rad/s) Omega_max (rad/s) Delta_Z (m) Duration_acc (sec) Duration_hold (sec) Duration_dec (sec)"
+
+For example: `rosservice call /trajectory_generator/set_mode "Trajectory_Tracking helical_var 1.0 1.0 2.0 1.0 30 10 30"` would request to track a helical trajectory whose radius equals to 1.0m with a linearly varying frequency (rad/s), such that in the first 30 seconds, it accelerates from omega = 1.0 to 2.0 rad/s while ascending in the Z-axis by 1.0m then remains at the maximum frequency and altitude for 10 seconds and lastly, decelerates back to omega = 1.0 rad/s and decends to the initial starting altitude in the final 30 seconds. 
+
+**OR**
+
 * rosservice call /trajectory_generator/set_mode "Trajectory_Tracking min_snap Num_of_waypoints X1 Y1 Z1 X2 Y2 Z2 .... XN YN ZN T1 T2 .... TN"
 
 For example: `rosservice call /trajectory_generator/set_mode "Trajectory_Tracking min_snap 3 5.0 5.0 5.0 8.0 2.0 7.0 3.0 0.0 3.0 5.0 10.0 15.0"` would request to track the minimum snap trajectory which starts from the current position and passes though the 3 defined waypoints: P1(5.0,5.0,5.0), P2(8.0,2.0,7.0) and P3(3.0,0.0,3.0). Morever, the trajectory must equal those waypoints at their repsective timestamps T1=5.0s, T2=10.0s and T3=15.0s, where this elapsed time is calculated from the time the trajectory is initiated. Lastly, all derivatives whose order is 1 or greater must be equal to 0.0 at the two endpoints (the starting position and the final waypoint).
