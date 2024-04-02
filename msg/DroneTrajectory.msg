@@ -1,0 +1,6 @@
+Header header
+string discrete_state
+geometry_msgs/Vector3 position
+geometry_msgs/Vector3 velocity
+geometry_msgs/Vector3 acceleration
+float64 yaw

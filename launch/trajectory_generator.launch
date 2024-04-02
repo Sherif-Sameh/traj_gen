@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+
+<launch>
+    <!-- Trajectory Generator Arguments -->
+    <arg name="pose_topic_name" default="/iris_demo/pose" />
+    <arg name="arming_srv_name" default="/mavros/cmd/arming" />
+    <arg name="set_flight_mode_srv_name" default="/mavros/set_mode" />
+    <arg name="min_takeoff_height" default="1.0" />
+    <arg name="max_takeoff_height" default="5.0" />
+    <arg name="max_takeoff_rate" default="0.2" />
+    <arg name="min_landing_height" default="0.1" />
+    <arg name="max_landing_rate" default="0.1" />
+    <arg name="trajectory_publish_rate" default="10.0" />
+    <arg name="yaw_tracking_enable" default="false" /> <!-- !!!! Does not work, do not enable !!!!-->
+
+    <node name="trajectory_generator" pkg="traj_gen" type="trajectory_generator" output="screen">
+
+        <!-- Input Parameters  -->
+        <param name="pose_topic_name" value="$(arg pose_topic_name)" />
+        <param name="arming_srv_name" value="$(arg arming_srv_name)" />
+        <param name="set_flight_mode_srv_name" value="$(arg set_flight_mode_srv_name)" />
+        <param name="min_takeoff_height" value="$(arg min_takeoff_height)" />
+        <param name="max_takeoff_height" value="$(arg max_takeoff_height)" />
+        <param name="max_takeoff_rate" value="$(arg max_takeoff_rate)" />
+        <param name="min_landing_height" value="$(arg min_landing_height)" />
+        <param name="max_landing_rate" value="$(arg max_landing_rate)" />
+        <param name="trajectory_publish_rate" value="$(arg trajectory_publish_rate)" />
+        <param name="yaw_tracking_enable" value="$(arg yaw_tracking_enable)" />
+
+    </node>    
+</launch>
